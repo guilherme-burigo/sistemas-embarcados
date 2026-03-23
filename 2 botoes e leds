@@ -1,0 +1,39 @@
+const int pin_botaoA = 2;
+const int pin_botaoB = 3;
+const int led1 = 7;
+const int led2 = 6;
+const int led3 = 5;
+bool botaoA = false;
+bool botaoB = false;
+void setup() {
+  pinMode(pin_botaoA, INPUT_PULLUP);
+   pinMode(pin_botaoB, INPUT_PULLUP);
+  pinMode(led1, OUTPUT);		//
+  pinMode(led2, OUTPUT);			//
+  pinMode(led3, OUTPUT);
+  Serial.begin(115200); // put your setup code here, to run once:
+}
+
+void loop() {
+  botaoA = digitalRead(pin_botaoA);
+  botaoB = digitalRead(pin_botaoB);
+  if (botaoA == 0 && botaoB == 0) {
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+  }
+  else{digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  }
+  if (botaoA == 0 || botaoB == 0 ){
+     digitalWrite(led2, HIGH);
+  }
+  else
+     digitalWrite(led2, LOW);
+  if (botaoA == 0 ^ botaoB == 0){
+    digitalWrite(led3, HIGH);
+  }
+  else 
+  digitalWrite(led3, LOW);
+  // put your main code here, to run repeatedly:
+
+}
