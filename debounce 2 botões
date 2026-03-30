@@ -1,0 +1,62 @@
+const int pin_botaoA = 2;
+const int pin_botaoB = 3;
+const int led4 = 11;
+const int led3 = 10;
+const int led2 = 9;
+const int led1 = 8;
+int estado_ledA = LOW;
+int estado_ledB = LOW;
+int estado_botaoA;
+int estado_botaoB;
+int ultimo_estado_botaoA = HIGH;
+int ultimo_estado_botaoB = HIGH;
+unsigned long tempo_debounceA = 0;
+unsigned long tempo_debounceB = 0;
+unsigned long atraso = 50;
+
+void setup() {
+  pinMode(pin_botaoA, INPUT_PULLUP);
+  pinMode(pin_botaoB, INPUT_PULLUP);
+  pinMode(led1, OUTPUT);	
+  pinMode(led2, OUTPUT);		
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+  digitalWrite(led1, estado_ledA);
+  digitalWrite(led2, estado_ledB);
+
+
+}
+
+void loop() {
+  int leituraA = digitalRead(pin_botaoA);
+  if (leituraA != ultimo_estado_botaoA) {
+    tempo_debounceA = millis();
+  }
+  if ((millis() - tempo_debounceA) > atraso){
+    if (leituraA != estado_botaoA) {
+      estado_botaoA = leituraA;
+      if (estado_botaoA == LOW) {
+        estado_ledA = !estado_ledA;
+      }
+    }
+  }
+digitalWrite(led1, estado_ledA);
+ultimo_estado_botaoA = leituraA;
+
+int leituraB = digitalRead(pin_botaoB);
+  if (leituraB != ultimo_estado_botaoB) {
+    tempo_debounceB = millis();
+  }
+  if ((millis() - tempo_debounceB) > atraso){
+    if (leituraB != estado_botaoB) {
+      estado_botaoB = leituraB;
+      if (estado_botaoB == LOW) {
+        estado_ledB = !estado_ledB;
+      }
+    }
+  }
+digitalWrite(led2, estado_ledB);
+ultimo_estado_botaoB = leituraB;
+
+
+}
