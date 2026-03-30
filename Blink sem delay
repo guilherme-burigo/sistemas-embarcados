@@ -1,0 +1,29 @@
+const int led4 = 11;
+const int led3 = 10;
+const int led2 = 9;
+const int led1 = 8;
+bool estado = 0;
+unsigned long tempo_anterior = 0;
+const long intervalo = 1000;
+void setup() {
+  pinMode(led1, OUTPUT);		//
+  pinMode(led2, OUTPUT);			//
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
+  Serial.begin(115200);
+}
+
+void loop() {
+  unsigned long tempo_atual = millis();
+  if (tempo_atual - tempo_anterior >= intervalo){
+    estado = !estado;
+    digitalWrite(led4, estado);
+    digitalWrite(led3, estado);
+    digitalWrite(led2, estado);
+    digitalWrite(led1, estado);
+    tempo_anterior = tempo_atual;
+    Serial.println("1 segundo");
+  }
+
+}
+
